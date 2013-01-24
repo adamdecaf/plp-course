@@ -82,3 +82,5 @@ Many different
     1
     > (max 1 2 3)
     3
+
+## Abstractions
