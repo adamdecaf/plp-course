@@ -11,14 +11,15 @@
 * cons (allows us to create pairs)
 * car/cdr
 
-
-## Examples
-
     (define x (cons 1 2))
     (define y (cons x x))
     (define z (cons y 4))
     (define w (cons z (cons y x)))
 
-## List
-
+#### Lists
 A list is a pair whose second part is another list. (With the final pointer being null)
+
+* lists can be nested to any depth we want
+* the _cdr_ of any list is another list.
+
+### Vectors
