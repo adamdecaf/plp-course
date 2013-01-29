@@ -22,4 +22,33 @@ A list is a pair whose second part is another list. (With the final pointer bein
 * lists can be nested to any depth we want
 * the _cdr_ of any list is another list.
 
+**Draw a picture**
+
+    (cons (list 3 4)
+          (cons (list 3 4))
+                (list 4 5))
+
+    A = (list 3 4)
+
+    ---------     ----------
+    | 3 |   |---->| 4  | \ |
+    ---------     ----------
+
+    B = (list 3 4)
+
+    ---------     ----------
+    | 3 |   |---->| 4  | \ |
+    ---------     ----------
+
+    C = (list 4 5)
+
+    ---------     ----------
+    | 3 |   |---->| 4  | \ |
+    ---------     ----------
+
+    (cons ...)
+    ---------     ---------     ---------
+    | A |   |---->| B |   |---->| C | \ |
+    ---------     ---------     ---------
+
 ### Vectors
