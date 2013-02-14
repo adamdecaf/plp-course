@@ -45,10 +45,3 @@ Having two methods that call each other.
       (if (eq? old exp) new exp)
       (subst new old slist))))
 ```
-
-## S-List
-
-An S-List is a list that has symbols.
-
-    s-list            ::= () | (symbol-expression . s-list)
-    symbol-expression ::= symbol | s-list
