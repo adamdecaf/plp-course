@@ -11,7 +11,7 @@
 * _Free_: "if" not bound
 * _Bound_: Associaed with a formal paramater of a procedure.
 
-```
+```scheme
 ( (lambda (x) x) y) // y is free, x is bound
 
 (lambda (y)

@@ -14,7 +14,7 @@ Interface Method
     ;; Example
     (subst 'a 'b '((a b) (((b g r) (f r)) c (d e)) b))
 
-```
+```scheme
 (define subst
   (lambda (new old slist)
     (if (null? slist)
@@ -30,7 +30,7 @@ Interface Method
 
 Having two methods that call each other.
 
-```
+```scheme
 (define subst
  (lambda (new old slist)
    (if (null? slist)

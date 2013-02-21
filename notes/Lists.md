@@ -1,6 +1,6 @@
 ## Lists
 
-```
+```scheme
 ;; Write Take
 
 ;; Write Drop

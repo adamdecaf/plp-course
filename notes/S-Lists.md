@@ -7,7 +7,7 @@ An S-List is a list that has symbols.
 
 ## Mapping
 
-```
+```scheme
 (define map-slist
   (lambda (f lst)
     (if (null? lst)
@@ -32,7 +32,7 @@ An S-List is a list that has symbols.
 
 ## Fringe (flatten)
 
-```
+```scheme
 ;; fringe
 (define fringe
   (lambda (lst)
@@ -50,7 +50,7 @@ An S-List is a list that has symbols.
 
 ## Factorial
 
-```
+```scheme
 (define factorial-aps
   (lambda (n)
     (smart-factorial n 1)))
@@ -61,12 +61,12 @@ An S-List is a list that has symbols.
         answer
         (smart-factorial (- n 1)
                          (* n answer)))))
-```
+```scheme
 
 
 ## (count-occurences s slist)
 
-```
+```scheme
 (define count-occurences-accum
   (lambda (s slist count)
     (if (null? slist)
