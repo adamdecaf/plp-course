@@ -1,1 +1,1 @@
-# Programming Languages and Paradigms.
+# Programming Languages and Paradigms
