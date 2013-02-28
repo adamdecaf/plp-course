@@ -11,8 +11,8 @@
 ;; == Tests Status ==
 ;; 1. PASS
 ;; 2. PASS
-;; 3. Not Done
-;; 4. Not Done
+;; 3. PASS
+;; 4. PASS
 ;; 5. Not Done
 
 ;; == Reference == 
@@ -73,43 +73,63 @@
 ;; swap every var1 with var 2
 ;; swap every var2 with var1
 (define swap
-  (lambda (lst)
-    lst))
-
+  (lambda (var1 var2 lst)
+    (if (null? lst)
+        '()
+        (if (list? (car lst))
+            (cons (swap var1 var2 (car lst))
+                  (swap var1 var2 (cdr lst)))
+            (if (eq? var1 (car lst))
+                (cons var2 (swap var1 var2 (cdr lst)))
+                (if (eq? var2 (car lst))
+                    (cons var1 (swap var1 var2 (cdr lst)))
+                    (cons (car lst) (swap var1 var2 (cdr lst)))))))))
+  
 ;; swap tests
 ;(swap 'a 'b '((a b) (((b g r) (f r)) c (d e)) b))
 ;(swap 'a 'b '((a a) (((a (a) (a a)) (a (aaaa))) a (a a)) a))
-
+;
 ; (equal? (swap 'a 'b '((a b) (((b g r) (f r)) c (d e)) b)) 
 ;    '((b a) (((a g r) (f r)) c (d e)) a))
-
+;
 ; (equal? (swap 'a 'b '((a a) (((a (a) (a a)) (a (aaaa))) a (a a)) a))
-;    '((b b) (((b (b) (b b)) (b (aaaa))) b (b b)) b)
+;    '((b b) (((b (b) (b b)) (b (aaaa))) b (b b)) b))
 
 
 ;; (uniq-c s-list) 
 ;; count the number of times a symbol occurs
+(load "inc-count.rkt")
+
 (define uniq-c
   (lambda (lst)
-    lst))
+    (uniqc-helper lst '())))
+
+(define uniqc-helper
+  (lambda (lst acc)
+    (if (null? lst)
+        acc
+        (if (list? (car lst))
+            (uniqc-helper (cdr lst) (uniqc-helper (car lst) acc))
+            ;(uniqc-helper (car lst) (uniqc-helper (cdr lst) acc)) ;; either way works
+            (uniqc-helper (cdr lst) (inc-count (car lst) acc))))))
 
 ;; uniq-c tests
 ;(uniq-c '((a b) (((b g r) (f r)) c (d e)) b))
 ;(uniq-c '((a a) (((a (a) (a a)) (a (aaaa))) a (a a)) a))
-
+;
 ;(equal? (uniq-c '((a b) (((b g r) (f r)) c (d e)) b))
-;        ((a 1) (b 3) (g 1) (r 2) (f 1) (c 1) (d 1) (e 1)))
-
+;        '((a . 1) (b . 3) (g . 1) (r . 2) (f . 1) (c . 1) (d . 1) (e . 1)))
+;
 ;(equal? (uniq-c '((a a) (((a (a) (a a)) (a (aaaa))) a (a a)) a))
-;        ((aaaa 1) (a 11)))
+;        '((a . 11) (aaaa . 1)))
 
 
 
 ;; (bst? bin-tree) 
 ;; returns true/false if the binary search tree is a tree or not.
-(define bst?
-  (lambda (lst)
-    lst))
+;(define bst?
+;  (lambda (lst)
+;    lst))
 
 ;; bst? tests
 ;(bst? '(8 (3 1 5) (15 12 20)))

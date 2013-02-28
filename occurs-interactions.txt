@@ -1,0 +1,37 @@
+
+> (occurs-free? 'a 'a)
+#t
+> (occurs-free? 'a 'b)
+#f
+> (occurs-free? 'a '(lambda (b) (a b)))
+#t
+> (occurs-free? 'b '(lambda (b) (a b)))
+#f
+> (occurs-free? 'c '(lambda (b) (a b)))
+#f
+> (occurs-free? 'a '(a b))
+#t
+> (occurs-free? 'b '(a b))
+#t
+> (occurs-free? 'c '(a b))
+#f
+> (occurs-bound? 'a 'a)
+#f
+> (occurs-bound? 'a '(a b))
+#f
+> (occurs-bound? 'a '(lambda (b) (a b)))
+#f
+> (occurs-bound? 'b '(lambda (b) (a b)))
+#t
+> (occurs-bound? 'a '(lambda (a)
+                       (lambda (b)
+                         (a b))))
+#t
+> (occurs-bound? 'b '(lambda (a)
+                       (lambda (b)
+                         (a b))))
+#t
+> (occurs-bound? 'c '(lambda (a)
+                       (lambda (b)
+                         (a b))))
+#f
