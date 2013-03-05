@@ -48,8 +48,7 @@
   (lambda (start finish)
     (if (> start finish)
         '()
-        (cons start (sequence (+ start 1) finish)))
-    ))
+        (cons start (sequence (+ start 1) finish)))))
 
 (define softmax-var
   (lambda x

@@ -24,8 +24,7 @@
   (lambda (start finish)
     (if (> start finish)
         '()
-        (cons start (sequence (+ start 1) finish)))
-    ))
+        (cons start (sequence (+ start 1) finish)))))
 
 ;; CharAt
 (define char-at
@@ -37,7 +36,7 @@
 (define init-list
   (lambda (str)
     (map (char-at str) (sequence 1 (- (string-length str) 1)))))
-  
+
 ;; Init
 (define init
   (lambda (s)
