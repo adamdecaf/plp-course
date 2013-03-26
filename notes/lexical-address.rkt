@@ -10,6 +10,16 @@
 ;; if and app are just recursive calls
 ;; lambda creates new bindings
 
+;(
+; ((a b) 2) 
+; ((c) 1)
+;)
+
+
+;(lambda (f)
+;  (lambda (g x)
+;    (f (g x))))
+
 (define lexical-address-helper
   (lambda (exp bindings)
     (cond ((if? exp)
