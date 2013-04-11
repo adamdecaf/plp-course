@@ -23,4 +23,33 @@ So, example dmain/codomain sets could be..
 * This can lead to boilerplate that we may want to reduce if possible.
 * Can we generate functions that will do this for us? Yep!
 
-__Program Generation for Verification__
+```scheme
+;; simple, but naive
+(define f
+  (lambda (avg)
+    (cond ((eq? avg 'foo) 7)
+          ((eq? avg 'bar) 5)
+          ((eq? avg 'baz) 15)
+          (else (error "Error..")))))
+```
+
+Then, take this improvement
+
+```scheme
+;; Create an inductive finite function definition.
+(define empty-ff
+  (lambda ()
+    (lambda (sym)
+      (error "..."))))
+
+(define extend-ff
+  (lambda (sym val ff)
+    (lambda (symbol)
+      (if (eq? sym symbol)
+        val
+        (ff symbol)))))
+
+(define apply-ff
+  (lambda (ff sym)
+    (ff sym)))
+```
