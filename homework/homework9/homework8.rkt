@@ -14,7 +14,7 @@
 ;(record-put <record> <field> <value>)
 ;(record-get <record> <field>)
 
-(define vmap 
+(define vmap
   (lambda (f vec)
     (vmap-helper f vec #())))
 
@@ -22,8 +22,8 @@
   (lambda (f vec acc)
     (if (zero? (vector-length vec))
         acc
-        (vmap-helper f 
-                     (vector-drop vec 1) 
+        (vmap-helper f
+                     (vector-drop vec 1)
                      (vector-append acc (vector (f (vector-ref vec 0))))))))
 
 ; (vmap (lambda (e) (+ e 1)) #(1 2 3 4))
@@ -53,10 +53,10 @@
         (car (vector-ref acc 0))
         (vmap (lambda (elm)
                 (if (eq? (car elm) sym)
-                    (record-get-helper 
+                    (record-get-helper
                      (vector-drop rec 1)
-                     sym 
-                     (record-put acc sym (cadr elm))))) 
+                     sym
+                     (record-put acc sym (cadr elm)))))
               rec))))
 
 (define recc (record-put (record 'name) 'name "adam"))
@@ -93,12 +93,12 @@
 (eq? (boom/oper '(12 * 20)) '*)
 (eq? (boom/right '(12 * 20)) 20)
 
-(define boom? 
+(define boom?
   (lambda (exp)
     (if (null? exp)
         #f
         (boom/exp? exp))))
-        
+
 (define boom/exp?
   (lambda (exp)
     (or (number? exp)
@@ -152,7 +152,7 @@
              (boom-eval-helper (boom/right exp))
              (boom/right exp))
          ))))
-  
+
 (boom/eval 2)
 (boom/eval '(2 + 4))
 (boom/eval '((2 * 14) + (4 - 6)))

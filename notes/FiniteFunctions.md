@@ -33,10 +33,10 @@ So, example dmain/codomain sets could be..
           (else (error "Error..")))))
 ```
 
-Then, take this improvement
+Then, take this improvement. To create an inductive finite function definition.
 
 ```scheme
-;; Create an inductive finite function definition.
+;;
 (define empty-ff
   (lambda ()
     (lambda (sym)
@@ -52,4 +52,13 @@ Then, take this improvement
 (define apply-ff
   (lambda (ff sym)
     (ff sym)))
+```
+
+We can handle this further by using vectors.
+
+```scheme
+; (empty-ff)
+; (extend-ff sym val ff)
+; (extend-ff* sym-list val-list ff)
+; (apply-ff ff sym)
 ```
