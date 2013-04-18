@@ -52,7 +52,7 @@
 (define zipWith
   (lambda (l1 l2 f)
     (let ((len (min (length l1) (length l2))))
-      (zipWith-helper (take l1 len) 
+      (zipWith-helper (take l1 len)
                       (take l2 len)
                       f
                       '()))))
@@ -74,43 +74,29 @@
 ;; solution
 (define big+
   (lambda (m n)
-    ;(display m)
-    ;(display n)
-    ;(display "\n\n")
     (let ((mlen (length m))
           (nlen (length n))
           (diff (abs (- (length m) (length n)))))
       (cond ((> mlen nlen)
-             (big+helper (drop m diff)
+             (big+helper (drop-right m diff)
                          n
-                         (take m diff)))
+                         (take-right m diff)))
             ((< mlen nlen)
              (big+helper m
-                         (drop n diff)
-                         (take n diff)))
+                         (drop-right m diff)
+                         (take-right n diff))
             ((= mlen nlen)
-             (big+helper m n '()))))))
+             (big+helper m n '())))))))
 
 (define big+helper
   (lambda (m n res)
-    (display m)
-    (display n)
-    (display res)
-    (append res (zipWith m n (lambda (a b) 
-                                        (display (+ a b))
-                                        (+ a b))))))
-    
-(display "big+ tests\n")
-;(equal? (big+helper '(1 2 3 4) '(5 6 7 8) '(9 0)) '(9 0 6 8 10 12))
+    (append (zipWith m n (lambda (a b)
+                           (+ a b))) res)))
 
+
+(display "big+ tests\n")
 (eq? (bignum->int (big+ (int->bignum 123) (int->bignum 45))) 168)
 
-;(define big4191 (int->bignum 4191))
-;(define big65   (int->bignum 65))
-;
-;(big+ big4191 big65)
-;(bignum->int (big+ big4191 big65))
-;(zero? (- (bignum->int (big+ big4191 big65)) 4256))
 
 ;; Problem #4
 (display "boom/eval with unary operators tests\n")
@@ -133,12 +119,11 @@
 (define boom/sugared/oper/eval
   (lambda (exp)
     (cond ((eq? (boom/oper exp) '@)
-           (list ('/ ('+ (boom/left exp) (boom/right exp)) 2)))
+           (list (list (boom/left exp) '+ (boom/right exp)) '/ 2))
           (error "Invalid sugared app"))))
 
 (display "boom/sugared/oper/eval tests\n")
-(boom/sugared/oper/eval '(3 @ 9))
-(equal? (boom/sugared/oper/eval '(3 @ 9)) '(/ (+ 3 2) 2))
+(equal? (boom/sugared/oper/eval '(3 @ 9)) '((3 + 9) / 2))
 
 (define boom/sugared/app?
   (lambda (exp)
@@ -149,21 +134,24 @@
              (boom/exp? (boom/right exp))))))
 
 (display "boom/sugared/app? tests\n")
-(boom/sugared/app? '(12 @ 100))
-(not (boom/sugared/app? '(12 + 100)))
+(boom/sugared/app? '(3 @ 2))
+(not (boom/sugared/app? '(3 + 2)))
 
-;(define boom/sugared/app/eval
-;  (lambda (exp)
-;    (
-;
-;(define boom/preprocess
-;  (lambda (sugared)
-;    (if 
-    
+(define boom/preprocess
+  (lambda (exp)
+    (cond ((boom/number? exp) exp)
+          ((boom/unary? exp) (cons
+                              (boom/unary->oper exp)
+                              (boom/preprocess (boom/unary->exp exp))))
+          ((or (boom/app? exp)
+               (boom/sugared/app? exp))
+           (let ((desugar (if (boom/sugared/app? exp)
+                              (boom/sugared/oper/eval exp)
+                              exp)))
+                 (list (boom/preprocess (boom/left desugar))
+                       (boom/oper desugar)
+                       (boom/preprocess (boom/right desugar)))))
+          (error "Invalid syntax"))))
 
 (display "boom/preprocess tests\n")
-
-
-;(boom/eval '(3 @ 9))
-;(eq? (boom/eval '(3 @ 9)) 6)
-;(eq? (boom/eval '((3 @ 9) + (3 @ 9))) 12)
+(equal? (boom/preprocess '(3 @ 9)) '((3 + 9) / 2))
