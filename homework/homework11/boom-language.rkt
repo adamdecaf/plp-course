@@ -26,12 +26,12 @@
         (eq? opt '*)
         (eq? opt '/)
         (eq? opt '%))))
- 
+
 ;; boom unary accessors
 (define boom/unary->oper car)
 (define boom/unary->exp cadr)
 
-(define boom/unary-oper? 
+(define boom/unary-oper?
   (lambda (exp)
     (or (eq? '- exp)
         (eq? 'sqrt exp))))
@@ -94,8 +94,8 @@
          (boom/exp? (boom/with/exp exp)))))
 
 (define boom/with/eval
-  (lambda (exp) 
-      (boom/eval 
+  (lambda (exp)
+      (boom/eval
        (let ((sym (boom/with/variable exp))
              (value (boom/with/var-value exp)))
          (cond ((boom/app? (boom/with/exp exp))
